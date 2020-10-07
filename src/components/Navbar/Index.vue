@@ -26,8 +26,8 @@
         </div>
 
         <!--opciones de navegacion -->
-        <Perfil v-if="user.loggedIn" />
-        <MovilOpciones v-if="$vuetify.breakpoint.smAndDown && !user.loggedIn" />
+        <Perfil v-if="sesion" />
+        <MovilOpciones v-if="$vuetify.breakpoint.smAndDown && !sesion" />
     </v-app-bar>
 </template>
 
@@ -41,6 +41,10 @@ import {mapState} from 'vuex';
         },
         computed:{
             ...mapState('sesion',{user:'user'}),
+
+            sesion(){
+                return this.user.loggedIn;
+            }
         },
         methods:{
             push(){ this.$router.push('/')}

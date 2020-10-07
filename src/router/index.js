@@ -7,9 +7,11 @@ Vue.use(Router)
 const routerOptions = [
 	{ path: '/', name: 'Home',meta:{auth:false}},
 	{ path: '/dashboard', name: 'Dashboard',meta:{auth:true}},
+	{ path: '/account', name: 'Perfil',meta:{auth:true}},
 	{ path: '/login', name: 'Login',meta:{auth:false}},
 	{ path: '/register', name: 'Register',meta:{auth:false}},
 	{ path: '/forgot', name: 'Forgot',meta:{auth:false}},
+	{ path: '/resetpassword/:email/:token', name: 'Reset',meta:{auth:false}},
 	{ path: '*', redirect: { name: 'Home' } }
 ]
 
@@ -40,13 +42,13 @@ const router = new Router({
 });
 
 router.beforeEach((to,from,next) => {
-	let user =  window.sessionStorage.getItem('token_client');
+	let user = window.sessionStorage.getItem('token_client');
 
 	if(to.meta.auth){
 		if(user !== null){
 			next();
 		}else{
-			next({name: 'notauthorized'});
+			next({name: 'Home'});
 		}
 	}else{
 		if(to.name == 'Login' && user !== null){

@@ -44,17 +44,16 @@ export default {
         },
         logged({commit},payload){
             commit('SET_USER',payload);
-        },
-        setChatSession({commit},payload){
-            commit("SET_CHAT_CONNECTION",payload);
+            commit('SET_ACCESS_TOKEN',payload.token);
         },
         getSesion({ commit },payload) {
             commit('SET_LOADING', true);
             Auth().post("/sesion",{token:payload}).then((response) => {
+                console.log(response);
                 //sesion expirada
                 if(response.data.code == 440) sessionStorage.removeItem("token_client");
                 //token incorrecto
-                if(response.data.code == 401) sessionStorage.removeItem("token_client");
+                //if(response.data.code == 401) sessionStorage.removeItem("token_client");
                 
                 //sesion success
                 if(response.data.code == 200){
