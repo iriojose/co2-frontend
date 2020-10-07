@@ -1,5 +1,5 @@
 import Auth from '@/api/Auth';
-
+//se maneja informacion referente a la sesion del usaurio
 export default {
     namespaced: true,
 
@@ -53,7 +53,7 @@ export default {
                 //sesion expirada
                 if(response.data.code == 440) sessionStorage.removeItem("token_client");
                 //token incorrecto
-                //if(response.data.code == 401) sessionStorage.removeItem("token_client");
+                if(response.data.code == 401) sessionStorage.removeItem("token_client");
                 
                 //sesion success
                 if(response.data.code == 200){

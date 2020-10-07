@@ -30,17 +30,22 @@ export default {
     },
     created(){
         this.getVehiculos();
+        this.getUsuarios();
     },
 	computed: {
         ...mapState('sesion', {loading: 'loading',user: 'user'})
     },	
     methods:{
-        ...mapActions('global',['setVehiculos']),
+        ...mapActions('global',['setVehiculos','setUsuarios']),
 
         getVehiculos(){
             Data().get("/medio_transporte").then((response) => {
-                console.log(response);
                 this.setVehiculos(response.data.data);
+            });
+        },
+        getUsuarios(){
+            Data().get("/usuario").then((response) => {
+                this.setUsuarios(response.data.data);
             });
         }
     }
