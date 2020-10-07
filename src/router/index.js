@@ -1,29 +1,68 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Router from 'vue-router'
 
-Vue.use(VueRouter)
+Vue.use(Router)
 
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+// Configuración rutas
+const routerOptions = [
+	{ path: '/', name: 'Home',meta:{auth:false}},
+	{ path: '/dashboard', name: 'Dashboard',meta:{auth:true}},
+	{ path: '/login', name: 'Login',meta:{auth:false}},
+	{ path: '/register', name: 'Register',meta:{auth:false}},
+	{ path: '/forgot', name: 'Forgot',meta:{auth:false}},
+	{ path: '*', redirect: { name: 'Home' } }
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+// Rutas
+const routes = routerOptions.map(r => {
+	return {
+		...r,
+		// Lazy load
+		component: () => import(/* webpackChunkName: "[request]" */`@/views/${r.name}/Index.vue`)
+	}
 })
+
+const router = new Router({
+	mode: 'history',
+	base: "/",
+	routes,
+	linkActiveClass: 'router-link-active', 
+    linkExactActiveClass: 'router-link-exact-active', 
+    scrollBehavior (to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return { x: 0, y: 0 }
+        }
+    },
+    parseQuery: q => q,
+    fallback: true,
+});
+
+router.beforeEach((to,from,next) => {
+	let user =  window.sessionStorage.getItem('token_client');
+
+	if(to.meta.auth){
+		if(user !== null){
+			next();
+		}else{
+			next({name: 'notauthorized'});
+		}
+	}else{
+		if(to.name == 'Login' && user !== null){
+			next({name:'Home'});
+		}else if(to.name == 'Login' && user !== null){
+			next({name:'Home'});
+		}else if(to.name == 'Register' && user !== null){
+			next({name:'Home'});
+		}else if(to.name == 'Reset' && user !== null){
+			next({name:'Home'});
+		}else if(to.name == 'Forgot' && user !== null){
+			next({name:'Home'});
+		}else{
+			next();
+		}
+	}
+});
 
 export default router
