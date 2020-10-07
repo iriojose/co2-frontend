@@ -1,8 +1,5 @@
 <template>
-    <v-app-bar
-        app :elevation="$vuetify.breakpoint.smAndDown ? 0:null" 
-        :elevate-on-scroll="$vuetify.breakpoint.smAndDown ? false:true"
-    >
+    <v-app-bar app :elevation="2">
 		<div class="d-flex align-center">
 			<v-img
 	            alt="logo co2" class="shrink mr-2 cursor" contain
