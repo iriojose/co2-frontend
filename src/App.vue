@@ -17,7 +17,16 @@ import BaseLoading from '@/components/BaseLoading.vue'
 import {mapActions,mapState} from 'vuex';
 
 export default {
-	name: 'App',
+    name: 'App',
+    head: {
+		title() {
+			return {
+				inner: "CO2",
+				separator: " ",
+				complement: " ",
+			};
+		},
+	},
 	components: { MainLayout, LoadLayout, BaseLoading },
 	computed: {
 		...mapState('sesion', {loading: 'loading',user: 'user'})

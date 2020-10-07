@@ -14,9 +14,18 @@
 </template>
 
 <script>
-export default {
-  	name: 'Home',
-}
+	export default {
+		name: 'Home',
+		head: {
+			title() {
+				return {
+					inner: "Inicio",
+					separator: " ",
+					complement: " ",
+				};
+			},
+		},
+	}
 </script>
 
 <style lang="scss" scoped>

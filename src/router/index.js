@@ -50,15 +50,15 @@ router.beforeEach((to,from,next) => {
 		}
 	}else{
 		if(to.name == 'Login' && user !== null){
-			next({name:'Home'});
+			next({name:'Dashboard'});
 		}else if(to.name == 'Login' && user !== null){
-			next({name:'Home'});
+			next({name:'Dashboard'});
 		}else if(to.name == 'Register' && user !== null){
-			next({name:'Home'});
+			next({name:'Dashboard'});
 		}else if(to.name == 'Reset' && user !== null){
-			next({name:'Home'});
+			next({name:'Dashboard'});
 		}else if(to.name == 'Forgot' && user !== null){
-			next({name:'Home'});
+			next({name:'Dashboard'});
 		}else{
 			next();
 		}
