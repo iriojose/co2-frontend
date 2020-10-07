@@ -131,7 +131,6 @@ import { mapActions, mapState } from "vuex";
             login() {
                 this.loading = true;
                 Auth().post("/login", { data: this.data }).then((response) => {
-                    console.log(response);
                     this.logged(response.data);
                     this.success("Bienvenido");
                     this.$router.push("/dashboard")

@@ -13,11 +13,12 @@
 import LoadLayout from './layouts/LoadLayout'
 import MainLayout from './layouts/MainLayout'
 import BaseLoading from '@/components/BaseLoading.vue'
-
+import Data from '@/api/Data'
 import {mapActions,mapState} from 'vuex';
 
 export default {
     name: 'App',
+    components: { MainLayout, LoadLayout, BaseLoading },
     head: {
 		title() {
 			return {
@@ -26,11 +27,23 @@ export default {
 				complement: " ",
 			};
 		},
-	},
-	components: { MainLayout, LoadLayout, BaseLoading },
+    },
+    created(){
+        this.getVehiculos();
+    },
 	computed: {
-		...mapState('sesion', {loading: 'loading',user: 'user'})
-	},	
+        ...mapState('sesion', {loading: 'loading',user: 'user'})
+    },	
+    methods:{
+        ...mapActions('global',['setVehiculos']),
+
+        getVehiculos(){
+            Data().get("/medio_transporte").then((response) => {
+                console.log(response);
+                this.setVehiculos(response.data.data);
+            });
+        }
+    }
 };
 </script>
 
