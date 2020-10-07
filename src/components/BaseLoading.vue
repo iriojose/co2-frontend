@@ -1,7 +1,7 @@
 <template>
     <div class="loader-container">
         <img src="@/assets/img/loading.svg" width="125px" height="125px" class="spinner">
-        <img src="@/assets/img/co2.jpg" width="80px" height="80px" class="abs-center blink">
+        <img src="@/assets/img/co2.png" width="80px" height="80px" class="abs-center blink">
     </div>
 </template>
 

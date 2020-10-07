@@ -24,7 +24,7 @@ new Vue({
 	toasted,
 	methods: {//reestauracion de sesion en el hook created de app
 		init () {
-			let token = JSON.parse(window.sessionStorage.getItem("token_client"));
+			let token = window.sessionStorage.getItem("token_client");
         	if(token !== null) store.dispatch('sesion/getSesion', token, { root: true });
 		}
 	},
