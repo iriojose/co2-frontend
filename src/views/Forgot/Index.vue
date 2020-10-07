@@ -66,8 +66,10 @@
 <script>
 import validations from '@/validations/validations';
 import Auth from '@/api/Auth';
+import mensajes from '@/mixins/mensajes';
 
     export default {
+        mixins:[mensajes],
         data() {
             return {
                 ...validations,
@@ -86,22 +88,6 @@ import Auth from '@/api/Auth';
             }
         },
         methods:{
-            success(mensaje){
-                this.$toasted.success(mensaje, { 
-                    theme: "toasted-primary", 
-                    position: "top-right", 
-                    duration : 2000,
-                    //icon : "done",
-                });
-            },
-            error(mensaje){
-                this.$toasted.error(mensaje, { 
-                    theme: "toasted-primary", 
-                    position: "top-right", 
-                    duration : 2000,
-                    //con : "error",
-                });
-            },
             login(){
                 this.$router.push("/login");
             },

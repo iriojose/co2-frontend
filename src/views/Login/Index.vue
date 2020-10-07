@@ -82,9 +82,11 @@
 <script>
 import Auth from "@/api/Auth";
 import validations from "@/validations/validations";
+import mensajes from '@/mixins/mensajes';
 import { mapActions, mapState } from "vuex";
 
     export default {
+        mixins:[mensajes],
         data() {
             return {
                 ...validations,
@@ -111,22 +113,6 @@ import { mapActions, mapState } from "vuex";
 
             forgot(){
                 this.$router.push("/forgot");
-            },
-            success(mensaje){
-                this.$toasted.success(mensaje, { 
-                    theme: "toasted-primary", 
-                    position: "top-right", 
-                    duration : 2000,
-                    //icon : "done",
-                });
-            },
-            error(mensaje){
-                this.$toasted.error(mensaje, { 
-                    theme: "toasted-primary", 
-                    position: "top-right", 
-                    duration : 2000,
-                    //con : "error",
-                });
             },
             login() {
                 this.loading = true;

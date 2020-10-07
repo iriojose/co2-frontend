@@ -123,79 +123,65 @@
 import validations from "@/validations/validations";
 import Auth from "@/api/Auth";
 import { mapActions,mapState } from "vuex";
+import mensajes from '@/mixins/mensajes';
 
 	export default {
-	data() {
-		return {
-		e1: 1,
-		...validations,
-		loading: false,
-		loading2: false,
-		valid: false,
-		valid2: false,
-		change: false,
-		data: {
-			nombre: "",
-			apellido: "",
-			fecha_nac: new Date().toISOString().substr(0, 10),
-			email: "",
-			password: "",
-			imagen: "default.png"
-		},
-		password2: ""
-		};
-	},
-	head: {
-		title() {
-			return {
-				inner: "Registrate",
-				separator: " ",
-				complement: " "
-			};
-		}
-	},
-	computed: {
-		passwordConfirmationRule() {
-			return () => this.data.password === this.password2 || "Las contraseñas no coinciden.";
-		}
-	},
-	methods: {
-        ...mapActions('sesion',["logged"]),
-        
-        forgot(){
-            this.$router.push("/forgot");
+        mixins:[mensajes],
+        data() {
+            return {
+            e1: 1,
+            ...validations,
+            loading: false,
+            loading2: false,
+            valid: false,
+            valid2: false,
+            change: false,
+            data: {
+                nombre: "",
+                apellido: "",
+                fecha_nac: new Date().toISOString().substr(0, 10),
+                email: "",
+                password: "",
+                imagen: "default.png"
+            },
+            password2: ""
+            };
         },
-		success(mensaje){
-            this.$toasted.success(mensaje, { 
-                theme: "toasted-primary", 
-                position: "top-right", 
-                duration : 2000,
-                //icon : "done",
-            });
+        head: {
+            title() {
+                return {
+                    inner: "Registrate",
+                    separator: " ",
+                    complement: " "
+                };
+            }
         },
-        error(mensaje){
-            this.$toasted.error(mensaje, { 
-                theme: "toasted-primary", 
-                position: "top-right", 
-                duration : 2000,
-                //con : "error",
-            });
-        },
-		postUsuario() {
-            this.loading = true;
-			Auth().post("/signup", { data: this.data }).then(async response => {
-                this.logged(response.data);
-                console.log(response);
-                this.success("Bienvenido");
-                this.$router.push("/dashboard");
-			}).catch(() => {
-				this.error("Error al registrar intente mas tarde.");
-			}).finally(() => {
-                this.loading = false;
-            });
-		},
-	}
-};
+        computed: {
+            passwordConfirmationRule() {
+                return () => this.data.password === this.password2 || "Las contraseñas no coinciden.";
+            }
+        },  
+        methods: {
+            ...mapActions('sesion',["logged"]),
+            
+            forgot(){
+                this.$router.push("/forgot");
+            },
+            postUsuario() {
+                this.loading = true;
+                Auth().post("/signup", { data: this.data }).then(async response => {
+                    this.logged(response.data);
+                    console.log(response);
+                    this.success("Bienvenido");
+                    this.$router.push("/dashboard");
+                }).catch(() => {
+                    this.error("Error al registrar intente mas tarde.");
+                }).finally(() => {
+                    this.loading = false;
+                });
+            },
+        }
+    };
 </script>
 
 <style lang="scss" scoped>
