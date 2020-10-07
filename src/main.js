@@ -22,7 +22,7 @@ new Vue({
 	vuetify,
 	head,
 	toasted,
-	/*methods: {reestauracion de sesion
+	methods: {//reestauracion de sesion en el hook created de app
 		init () {
 			let token = JSON.parse(window.sessionStorage.getItem("token_client"));
         	if(token !== null) store.dispatch('sesion/getSesion', token, { root: true });
@@ -30,6 +30,6 @@ new Vue({
 	},
 	created () {
 		this.init()
-	},*/
+	},
   render: h => h(App)
 }).$mount('#app')
