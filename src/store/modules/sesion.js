@@ -1,4 +1,4 @@
-import Auth from '@/services/Auth';
+import Auth from '@/api/Auth';
 
 export default {
     namespaced: true,
