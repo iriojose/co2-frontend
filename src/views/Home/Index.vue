@@ -70,7 +70,6 @@ import { mapState,mapActions} from "vuex";
 			getNotas() {	
                 Data().get(`/usuario/${this.user.data.id}/notas`).then((response) => {
 					this.notas = response.data.pivotes;
-					this.notas.map(nota => nota.fecha_at = nota.fecha.substr(0, 10));
                 }).finally(() => {
                     this.loading = false;
                 });
