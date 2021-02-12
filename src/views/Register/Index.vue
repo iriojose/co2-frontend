@@ -12,7 +12,6 @@
                             <v-col cols="12" md="6" sm="12" class="pa-8">
                                 <div class="headline text-center mb-5">Registrate ahora!</div>
 
-
                                 <v-form v-model="valid" @submit.prevent class="my-5" >
                                     <v-stepper  v-model="e1" class="elevation-0" non-linear>
                                         <v-stepper-items>
@@ -32,29 +31,6 @@
                                                     :disabled="loading" append-icon="mdi-account"
                                                 ></v-text-field>
 
-                                                <v-menu
-                                                    :close-on-content-click="false"
-                                                    transition="scale-transition"
-                                                    max-width="100%"
-                                                    offset-overflow
-                                                >
-                                                    <template v-slot:activator="{ on }">
-                                                        <v-text-field
-                                                            dense v-model="data.fecha_nac" label="Cumpleaños"
-                                                            color="#2950c3" append-icon="mdi-calendar" filled
-                                                            v-on="on" rounded hint="Fecha de nacimiento:YYYY/MM/DD"
-                                                            persistent-hint single-line 
-                                                        ></v-text-field>
-                                                    </template>
-                                                    <v-date-picker
-                                                        v-model="data.fecha_nac" :landscape="!$vuetify.breakpoint.smAndDown" show-current
-                                                        header-color="#2950c3" color="#2950c3" locale="es"
-                                                    />
-                                                </v-menu>
-                                            </v-stepper-content>
-
-                                            <v-stepper-content step="2" style="padding:0px">
-
                                                 <v-text-field
                                                     filled rounded :disabled="loading"
                                                     v-model="data.email" single-line dense
@@ -67,7 +43,10 @@
                                                     persistent-hint
                                                 >
                                                 </v-text-field>
+                                                
+                                            </v-stepper-content>
 
+                                            <v-stepper-content step="2" style="padding:0px">
                                                 <v-text-field
                                                     filled rounded hint="Contraseña" persistent-hint
                                                     dense :disabled="loading" v-model="data.password"
@@ -83,7 +62,6 @@
                                                     :rules="[required('Confirmar contraseña'),passwordConfirmationRule()]"
                                                     label="Confirmar contraseña" append-icon="mdi-lock"
                                                 ></v-text-field>
-
                                             </v-stepper-content>
                                         </v-stepper-items>
                                     </v-stepper>
@@ -107,8 +85,8 @@
                                 </v-form>
 
                                 <v-divider class="hidden-sm-and-up"></v-divider>
-                                <div class="subtitle-2 text-center color my-5 hidden-sm-and-up" @click="forgot"
-                                >¿Olvidaste tu contraseña? ¡Recuperala!</div>
+                                <div class="subtitle-2 text-center color my-5" @click="login"
+                                >¿Ya estas registrado? ¡Inicia sesion!</div>
                             </v-col>
                         </v-row>
                     </v-card>
@@ -122,7 +100,7 @@
 <script>
 import validations from "@/validations/validations";
 import Auth from "@/api/Auth";
-import { mapActions,mapState } from "vuex";
+import { mapActions} from "vuex";
 import mensajes from '@/mixins/mensajes';
 
 	export default {
@@ -139,10 +117,8 @@ import mensajes from '@/mixins/mensajes';
             data: {
                 nombre: "",
                 apellido: "",
-                fecha_nac: new Date().toISOString().substr(0, 10),
                 email: "",
                 password: "",
-                imagen: "default.png"
             },
             password2: ""
             };
@@ -164,16 +140,16 @@ import mensajes from '@/mixins/mensajes';
         methods: {
             ...mapActions('sesion',["logged"]),
             
-            forgot(){
-                this.$router.push("/forgot");
+            login(){
+                this.$router.push("/login");
             },
+            
             postUsuario() {
                 this.loading = true;
                 Auth().post("/signup", { data: this.data }).then(async response => {
                     this.logged(response.data);
-                    console.log(response);
                     this.success("Bienvenido");
-                    this.$router.push("/dashboard");
+                    this.$router.push("/");
                 }).catch(() => {
                     this.error("Error al registrar intente mas tarde.");
                 }).finally(() => {

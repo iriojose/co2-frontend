@@ -13,7 +13,7 @@ export default {//mensajes para error o success
                 theme: "toasted-primary", 
                 position: "top-right", 
                 duration : 2000,
-                //con : "error",
+                //icon : "error",
             });
         },
     }

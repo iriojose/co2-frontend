@@ -1,4 +1,6 @@
 import Auth from '@/api/Auth';
+import router from '@/router';
+
 //se maneja informacion referente a la sesion del usaurio
 export default {
     namespaced: true,
@@ -15,7 +17,7 @@ export default {
     mutations: {
         SET_ACCESS_TOKEN (state, payload) {
             state.accessToken = payload;
-            window.sessionStorage.setItem('token_client',JSON.stringify(payload));
+            window.sessionStorage.setItem('token_client',payload);
         },
         SET_LOADING(state,payload){
             state.loading = payload;
@@ -50,9 +52,15 @@ export default {
             commit('SET_LOADING', true);
             Auth().post("/sesion",{token:payload}).then((response) => {
                 //sesion expirada
-                if(response.data.code == 440) sessionStorage.removeItem("token_client");
+                if(response.data.code == 440) {
+                    sessionStorage.removeItem("token_client");
+                    router.push("/login");
+                };
                 //token incorrecto
-                if(response.data.code == 401) sessionStorage.removeItem("token_client");
+                if(response.data.code == 401) {
+                    sessionStorage.removeItem("token_client");
+                    router.push("/login");
+                };
                 
                 //sesion success
                 if(response.data.code == 200){

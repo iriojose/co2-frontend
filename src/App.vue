@@ -13,8 +13,7 @@
 import LoadLayout from './layouts/LoadLayout'
 import MainLayout from './layouts/MainLayout'
 import BaseLoading from '@/components/BaseLoading.vue'
-import Data from '@/api/Data'
-import {mapActions,mapState} from 'vuex';
+import {mapState} from 'vuex';
 
 export default {
     name: 'App',
@@ -22,33 +21,15 @@ export default {
     head: {
 		title() {
 			return {
-				inner: "CO2",
+				inner: "App",
 				separator: " ",
 				complement: " ",
 			};
 		},
     },
-    created(){
-        this.getVehiculos();
-        this.getUsuarios();
-    },
 	computed: {
-        ...mapState('sesion', {loading: 'loading',user: 'user'})
+        ...mapState('sesion', {loading: 'loading'})
     },	
-    methods:{
-        ...mapActions('global',['setVehiculos','setUsuarios']),
-
-        getVehiculos(){
-            Data().get("/medio_transporte").then((response) => {
-                this.setVehiculos(response.data.data);
-            });
-        },
-        getUsuarios(){
-            Data().get("/usuario").then((response) => {
-                this.setUsuarios(response.data.data);
-            });
-        }
-    }
 };
 </script>
 
