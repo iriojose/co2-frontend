@@ -22,7 +22,7 @@ const routes = routerOptions.map(r => {
 
 const router = new Router({
 	mode: 'history',
-	base: "/",
+	base: "/test",
 	routes,
 	linkActiveClass: 'router-link-active', 
     linkExactActiveClass: 'router-link-exact-active', 
