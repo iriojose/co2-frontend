@@ -49,7 +49,6 @@ export default {
         getSesion({ commit },payload) {
             commit('SET_LOADING', true);
             Auth().post("/sesion",{token:payload}).then((response) => {
-                console.log(response);
                 //sesion expirada
                 if(response.data.code == 440) sessionStorage.removeItem("token_client");
                 //token incorrecto

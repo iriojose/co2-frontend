@@ -5,7 +5,7 @@
                 <v-row justify="center" class="py-2">
                     <v-col cols="12" md="9" sm="12">
                         <v-card
-                            color="#eee" width="100%" elevation="0"
+                            width="100%" elevation="2"
                             style="padding: 0 15px"
                         >
                             <v-row justify="center">
@@ -63,12 +63,11 @@
                                     <v-divider class="my-5"></v-divider>
 
                                     <div
-                                        class="subtitle-2 text-center color"
-                                        @click="forgot()"
+                                        class="subtitle-2 text-center hover"
+                                        @click="register()"
                                     >
-                                        ¿Olvidaste tu contraseña? ¡Recuperala!
+                                        ¿No estas registrado? ¡Registrate!
                                     </div>
-
                                 </v-col>
                             </v-row>
                         </v-card>
@@ -83,7 +82,7 @@
 import Auth from "@/api/Auth";
 import validations from "@/validations/validations";
 import mensajes from '@/mixins/mensajes';
-import { mapActions, mapState } from "vuex";
+import { mapActions} from "vuex";
 
     export default {
         mixins:[mensajes],
@@ -111,17 +110,18 @@ import { mapActions, mapState } from "vuex";
         methods:{
             ...mapActions('sesion',["logged"]),
 
-            forgot(){
-                this.$router.push("/forgot");
+            register(){
+                this.$router.push("/register");
             },
+
             login() {
                 this.loading = true;
                 Auth().post("/login", { data: this.data }).then((response) => {
                     this.logged(response.data);
                     this.success("Bienvenido");
-                    this.$router.push("/dashboard")
+                    this.$router.push("/");
                 }).catch(() => {
-                    this.error("Contraseña y/o usuario incorrecto")
+                    this.error("Contraseña y/o usuario incorrecto");
                 }).finally(() => {
                     this.loading = false;
                 })
@@ -134,10 +134,9 @@ import { mapActions, mapState } from "vuex";
     .margen{
         margin-top:100px;   
     }
-    .color:hover{
+    .hover:hover{
         cursor:pointer;
         text-decoration:underline;
-        background:#eee;
     }
      .color{
         color:#000;

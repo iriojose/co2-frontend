@@ -5,7 +5,7 @@
 				<div class="margen">
 					<v-img contain width="300" height="300" src="@/assets/img/co2.png"></v-img>
 					<div class="text-center font-weight-black headline mt-5 black--text">
-						Bienvenidos A co2 App
+						Bienvenidos A test App
 					</div>
 				</div>
             </v-row>

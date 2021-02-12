@@ -3,25 +3,18 @@ export default {
     namespaced: true,
 
     state: {
-        vehiculos:[],
-        usuarios:[]
+        notas:[]
     },
 
     mutations: {
-        SET_VEHICULOS(state,payload){
-            state.vehiculos = payload;
-        },
-        SET_USUARIOS(state,payload){
-            state.usuarios = payload;
+        SET_NOTAS(state,payload){
+            state.notas = payload;
         }
     },
   
     actions: {
-        setVehiculos({commit},payload){
-            commit('SET_VEHICULOS',payload);
+        setNotas({commit},payload){
+            commit('SET_NOTAS',payload);
         },
-        setUsuarios({commit},payload){
-            commit('SET_USUARIOS',payload);
-        }
     }
 }

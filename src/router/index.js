@@ -5,13 +5,9 @@ Vue.use(Router)
 
 // Configuración rutas
 const routerOptions = [
-	{ path: '/', name: 'Home',meta:{auth:false}},
-	{ path: '/dashboard', name: 'Dashboard',meta:{auth:true}},
-	{ path: '/account', name: 'Perfil',meta:{auth:true}},
+	{ path: '/', name: 'Home',meta:{auth:true}},
 	{ path: '/login', name: 'Login',meta:{auth:false}},
 	{ path: '/register', name: 'Register',meta:{auth:false}},
-	{ path: '/forgot', name: 'Forgot',meta:{auth:false}},
-	{ path: '/resetpassword/:email/:token', name: 'Reset',meta:{auth:false}},
 	{ path: '*', redirect: { name: 'Home' } }
 ]
 
@@ -45,25 +41,11 @@ router.beforeEach((to,from,next) => {
 	let user = window.sessionStorage.getItem('token_client');
 
 	if(to.meta.auth){
-		if(user !== null){
-			next();
-		}else{
-			next({name: 'Home'});
-		}
+		if(user !== null) next();
+		else next({name: 'Login'});
 	}else{
-		if(to.name == 'Login' && user !== null){
-			next({name:'Dashboard'});
-		}else if(to.name == 'Login' && user !== null){
-			next({name:'Dashboard'});
-		}else if(to.name == 'Register' && user !== null){
-			next({name:'Dashboard'});
-		}else if(to.name == 'Reset' && user !== null){
-			next({name:'Dashboard'});
-		}else if(to.name == 'Forgot' && user !== null){
-			next({name:'Dashboard'});
-		}else{
-			next();
-		}
+		if(user !== null) next({name: 'Home'});
+		else next();
 	}
 });
 
